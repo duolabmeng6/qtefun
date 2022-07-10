@@ -3,7 +3,7 @@ import json
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtWidgets import QMenu, QMenuBar, QToolBar, QToolButton
-from pyefun import *
+import pyefun as efun
 
 from qtefun.组件.组件公共类 import 组件公共类
 
@@ -43,9 +43,9 @@ class 工具条(组件公共类):
                 帮助文本 = 名称
 
             if 图标 is not None:
-                图标 = 子文本替换(图标, "./", 取运行目录() + "/")
-                图标 = 路径优化(图标)
-                if 文件是否存在(图标):
+                图标 = efun.子文本替换(图标, "./", efun.取运行目录() + "/")
+                图标 = efun.路径优化(图标)
+                if efun.文件是否存在(图标):
                     image = QIcon(图标)
                     self.添加项目(名称, image, 帮助文本, 图标宽度, 图标高度, 回调函数)
                 else:
