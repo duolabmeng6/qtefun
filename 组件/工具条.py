@@ -1,4 +1,5 @@
 import json
+import os
 
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QIcon, QAction
@@ -12,7 +13,7 @@ class 工具条(组件公共类):
     parent = None
     对象 = None  # type: QToolButton
     菜单项列表={}
-
+    资源文件绝对路径 = ""
     def 添加分隔条(self):
         self.addSeparator()
 
@@ -43,7 +44,7 @@ class 工具条(组件公共类):
                 帮助文本 = 名称
 
             if 图标 is not None:
-                图标 = efun.子文本替换(图标, "./", efun.取资源文件路径() + "/")
+                图标 = efun.子文本替换(图标, "./", self.资源文件绝对路径 + "/")
                 图标 = efun.路径优化(图标)
                 if efun.文件是否存在(图标):
                     image = QIcon(图标)
