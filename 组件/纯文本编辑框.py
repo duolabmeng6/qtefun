@@ -42,5 +42,32 @@ class 纯文本编辑框(组件公共类):
         return self.对象.setPlainText(value)
 
     def 绑定事件内容被改变(self, 回调函数):
+        """
+        回调函数(是否可撤销:bool)
+        """
         return self.对象.textChanged.connect(回调函数)
 
+
+    def 绑定事件块数量改变(self,回调函数):
+        return self.对象.blockCountChanged.connect(回调函数)
+
+    def 绑定事件光标位置被改变(self,回调函数):
+        return self.对象.cursorPositionChanged.connect(回调函数)
+
+    def 绑定事件被修改(self,回调函数):
+        return self.对象.modificationChanged.connect(回调函数)
+
+    def 绑定事件文本可复制(self,回调函数):
+        return self.对象.copyAvailable.connect(回调函数)
+
+    def 绑定事件文本可重做(self,回调函数):
+        return self.对象.redoAvailable.connect(回调函数)
+
+    def 绑定事件文本可撤销(self,回调函数):
+        return self.对象.undoAvailable.connect(回调函数)
+
+    def 绑定事件选择文本(self,回调函数):
+        return self.对象.selectionChanged.connect(回调函数)
+
+    def 绑定事件更新请求(self,回调函数):
+        return self.对象.updateRequest.connect(回调函数)

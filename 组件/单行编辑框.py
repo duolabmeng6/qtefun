@@ -32,5 +32,27 @@ class 单行编辑框(组件公共类):
         return self.对象.setText(value)
 
     def 绑定事件内容被改变(self, 回调函数):
+        """
+        当文本被编辑时触发
+        :param 回调函数: 回调函数(文本)
+        """
         return self.对象.textChanged.connect(回调函数)
 
+    def 绑定事件编辑完成(self, 回调函数):
+        return self.对象.editingFinished.connect(回调函数)
+
+    def 绑定事件输入被拒绝(self, 回调函数):
+        return self.对象.inputRejected.connect(回调函数)
+
+    def 绑定事件回车键被按下(self, 回调函数):
+        return self.对象.returnPressed.connect(回调函数)
+
+    def 绑定事件选择区域发生变化(self, 回调函数):
+        return self.对象.selectionChanged.connect(回调函数)
+
+    def 绑定事件文本被编辑(self, 回调函数):
+        """
+        当文本被编辑时触发
+        :param 回调函数: 回调函数(文本)
+        """
+        return self.对象.textEdited.connect(回调函数)
