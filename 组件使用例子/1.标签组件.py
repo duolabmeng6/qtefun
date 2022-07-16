@@ -26,9 +26,15 @@ class Main(QMainWindow):
 
         self.标签1 = 标签(self.label)
         self.标签1.标题 = "祖国您好!"
+        self.标签1.绑定事件被按下(self.点击事件)
+        self.标签1.绑定事件被松开(self.松开事件)
+
+    def 点击事件(self,e):
+        print("点击事件")
 
 
-
+    def 松开事件(self,e):
+        print("松开事件")
 
 app = QApplication([])
 # 创建窗口 400x400
