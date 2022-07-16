@@ -55,7 +55,6 @@ class 列表框(组件公共类):
     def 设置选中项目索引(self, 索引: int):
         return self.对象.setCurrentRow(索引)
 
-
     def 绑定事件当前项目已更改(self, 回调函数):
         """
         回调函数(当前选中:QListWidgetItem, 上一个:QListWidgetItem)
@@ -113,3 +112,12 @@ class 列表框(组件公共类):
     # void	itemSelectionChanged() # 选中项目改变时触发
     def 绑定事件选中项目已更改(self, 回调函数):
         self.对象.itemSelectionChanged.connect(回调函数)
+
+    # 获取和设置属性 现行选中项
+    @property
+    def 现行选中项(self):
+        return self.取选中项目索引()
+
+    @现行选中项.setter
+    def 现行选中项(self, 索引: int):
+        return self.设置选中项目索引(索引)

@@ -62,6 +62,7 @@ class Main(QMainWindow):
         self.列表框1.绑定事件项目被鼠标进入(self.项目被鼠标进入)
         self.列表框1.绑定事件项目被鼠标按下(self.项目被鼠标按下)
 
+        self.列表框1.现行选中项 = 2
 
 
 
