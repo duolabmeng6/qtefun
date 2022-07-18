@@ -1,4 +1,6 @@
 # 用于绑定全局热键
+# 需要安装 pynput
+# pip install pynput
 from pynput import keyboard
 
 热键和函数的映射 = {}
