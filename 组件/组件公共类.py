@@ -2,8 +2,10 @@ from PySide6 import QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont, QPalette, QColor, QPixmap, QIcon
 
+from 组件.组件汉化基类 import 组件汉化基类
 
-class 组件公共类():
+
+class 组件公共类(组件汉化基类):
     """
     配置组件方法和属性
     对象名称
@@ -42,23 +44,7 @@ class 组件公共类():
 
 
     """
-    对象 = QtWidgets.QWidget
-
-    def __init__(self, 对象):
-        self.对象 = 对象
-
-    def __getattr__(self, 方法名):
-        # 将调用不存在的方法转移到对象中 兼容原来的写法
-        def 检查方法是否存在(*args, **kwargs):
-            # 调用对象中的方法
-            if 方法名 in dir(self.对象):
-                return getattr(self.对象, 方法名)(*args, **kwargs)
-            # print(f'调用方法不存在 方法名：{方法名} 参数为：{args}, {kwargs}')
-            raise Exception(f'调用方法不存在 方法名：{方法名} 参数为：{args}, {kwargs}')
-
-        if 方法名 in dir(self):
-            return getattr(self, 方法名)
-        return 检查方法是否存在
+    对象 = None # type: QtWidgets.QWidget
 
     # 获取对象名称
     @property
