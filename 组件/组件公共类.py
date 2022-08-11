@@ -2,7 +2,7 @@ from PySide6 import QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont, QPalette, QColor, QPixmap, QIcon
 
-from 组件.组件汉化基类 import 组件汉化基类
+from qtefun.组件.组件汉化基类 import 组件汉化基类
 
 
 class 组件公共类(组件汉化基类):

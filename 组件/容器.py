@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QTableWidgetItem, QAbstractItemView, QLineEdit, QComboBox, QPushButton, QCheckBox, QWidget
 
-from 组件.组件汉化基类 import 组件汉化基类
+from qtefun.组件.组件汉化基类 import 组件汉化基类
 
 
 class 容器(组件汉化基类):
