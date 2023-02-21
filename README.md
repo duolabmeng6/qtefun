@@ -102,17 +102,6 @@ if __name__ == '__main__':
 
 ```
 
-## 主窗口 引入 qtefun.部件公共类
-
-该类继承 QtWidgets.QWidget 提供了窗口操作的中文函数
-
-```python
-import qtefun
-
-
-class myApp(qtefun.部件公共类):
-```
-
 # 组件中文化
 
 将ui对象包装一下即可实现中文化 不会丢失原有的对象的功能
