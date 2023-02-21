@@ -3,6 +3,104 @@
 中文函数简单易用~
 
 # 使用方法
+qt官方的设计器 生成出来的 app.ui 文件
+我们通过脚本 `qtefun/cmd/qt代码加入qtefun.py` 自动处理
+```
+    # 在pycharm中设置外部工具
+    # 名字 Pyside6-UIC2Qtefun
+    # 程序 python
+    # 实参 填绝对路径\qtefun\cmd\qt代码加入qtefun.py $FileName$ ui_$FileNameWithoutExtension$.py "填绝对路径\Anaconda3\Scripts\pyside6-uic.exe"
+    # 工作目录 $FileDir$
+    # 在终端运行下面的命令 即可自动监控界面的更新
+    # python 填绝对路径\qtefun\cmd\qt代码加入qtefun.py app.ui ui_app.py "填绝对路径\Anaconda3\Scripts\pyside6-uic.exe"
+
+```
+
+## 效果
+自动插入qtefun依赖 和 自动注入 中文函数
+```python
+
+from qtefun.组件.复选框 import 复选框
+from qtefun.组件.纯文本编辑框 import 纯文本编辑框
+from qtefun.组件.按钮 import 按钮
+from qtefun.组件.选择夹 import 选择夹
+from qtefun.组件.单行编辑框 import 单行编辑框
+from qtefun.组件.单选框 import 单选框
+from qtefun.组件.富文本编辑框 import 富文本编辑框
+from qtefun.组件.标签 import 标签
+
+class Ui_MainWindow(object):
+
+    def retranslateUi(self, MainWindow):
+
+        self.选择夹 = 选择夹(self.tabWidget)
+        self.按钮_2 = 按钮(self.pushButton_2)
+        self.按钮_3 = 按钮(self.pushButton_3)
+        self.按钮_4 = 按钮(self.pushButton_4)
+        self.按钮_5 = 按钮(self.pushButton_5)
+        self.按钮_1 = 按钮(self.pushButton_1)
+        self.按钮 = 按钮(self.pushButton)
+        self.按钮_6 = 按钮(self.pushButton_6)
+        self.标签 = 标签(self.label)
+        self.单行编辑框 = 单行编辑框(self.lineEdit)
+        self.富文本编辑框 = 富文本编辑框(self.textEdit)
+        self.纯文本编辑框 = 纯文本编辑框(self.plainTextEdit)
+        self.按钮_7 = 按钮(self.pushButton_7)
+        self.单选框 = 单选框(self.radioButton)
+        self.复选框 = 复选框(self.checkBox)
+```
+
+### 主窗口中即可使用中文函数了
+
+```python
+import sys
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+import ui_app as ui_app
+
+class 主窗口(QMainWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("QTableView Example")
+        self.resize(415, 200)
+        # 加载界面 ui_app.py
+        self.ui = ui_app.Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.tabWidget = self.ui.tabWidget
+        self.ui.按钮_1.绑定事件被按下(self.按钮1被按下)
+        self.ui.选择夹.绑定事件当前子夹改变(self.当前子夹改变)
+        self.ui.选择夹.绑定事件子夹被点击(self.子夹被点击)
+        self.ui.选择夹.绑定事件子夹被双击(self.子夹被双击)
+        self.ui.选择夹.绑定事件子夹被关闭(self.子夹被关闭)
+
+    def 当前子夹改变(self, 子夹索引):
+        print("当前子夹改变", 子夹索引)
+
+    def 子夹被点击(self, 子夹索引):
+        print("子夹被点击", 子夹索引)
+
+    def 子夹被双击(self, 子夹索引):
+        print("子夹被双击", 子夹索引)
+
+    def 子夹被关闭(self, 子夹索引):
+        print("子夹被关闭", 子夹索引)
+
+    def 按钮1被按下(self):
+        print("按钮1被按下")
+        # 修改选择夹的当前选中页
+        self.tabWidget.setCurrentIndex(1)
+        self.ui.选择夹.现行子夹 = 2
+        self.ui.选择夹.置子夹可用(1, False)
+        self.ui.选择夹.置子夹可见(1, False)
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    win = 主窗口()
+    win.show()
+    sys.exit(app.exec())
+
+```
 
 ## 主窗口 引入 qtefun.部件公共类
 
