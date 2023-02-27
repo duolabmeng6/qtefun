@@ -5,19 +5,24 @@
 # 使用方法
 qt官方的设计器 生成出来的 app.ui 文件
 我们通过脚本 `qtefun/cmd/qt代码加入qtefun.py` 自动处理
-```
-    # 在pycharm中设置外部工具
-    # 名字 Pyside6-UIC2Qtefun
-    # 程序 python
-    # 实参 填绝对路径\qtefun\cmd\qt代码加入qtefun.py $FileName$ ui_$FileNameWithoutExtension$.py "填绝对路径\Anaconda3\Scripts\pyside6-uic.exe"
-    # 工作目录 $FileDir$
-    # 在终端运行下面的命令 即可自动监控界面的更新
-    # python 填绝对路径\qtefun\cmd\qt代码加入qtefun.py app.ui ui_app.py "填绝对路径\Anaconda3\Scripts\pyside6-uic.exe"
 
-```
+### 在pycharm中设置外部工具
 
-## 效果
+名字 Pyside6-UIC2Qtefun (任意)
+程序 python
+实参 `填绝对路径\qtefun\cmd\qt代码加入qtefun.py $FileName$ ui_$FileNameWithoutExtension$.py "填绝对路径\Anaconda3\Scripts\pyside6-uic.exe"
+工作目录 $FileDir$`
+
+也可以在终端运行下面的命令 即可自动监控界面的更新
+
+`python 填绝对路径\qtefun\cmd\qt代码加入qtefun.py app.ui ui_app.py "填绝对路径\Anaconda3\Scripts\pyside6-uic.exe"`
+
+
+
+### 效果
+
 自动插入qtefun依赖 和 自动注入 中文函数
+
 ```python
 
 from qtefun.组件.复选框 import 复选框
@@ -102,6 +107,50 @@ if __name__ == '__main__':
 
 ```
 
+# 组件对应的英文
+
+| 英文 | 中文       |
+| ---- |----------|
+| `QtWidgets.QPushButton` | `按钮`     |
+| `QtWidgets.QLabel` | `标签`     |
+| `QtWidgets.QLineEdit` | `单行文本框`  |
+| `QtWidgets.QPlainTextEdit` | `纯文本编辑框` |
+| `QtWidgets.QTextEdit` | `富文本编辑框` |
+| `QtWidgets.QCheckBox` | `复选框` |
+| `QtWidgets.QRadioButton` | `单选框` |
+| `QtWidgets.QListWidget` | `列表框` |
+| `QtWidgets.QTreeWidget` | `树形框` |
+| `QtWidgets.QTableWidget` | `表格` |
+| `QtWidgets.QTabWidget` | `选择夹` |
+
+
+# 加载ui文件的例子
+
+```python
+import sys
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+import ui_app as ui_app #这里就是 uic生成的py文件
+
+class 主窗口(QMainWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("QTableView Example")
+        self.resize(415, 200)
+        # 加载界面 ui_app.py
+        self.ui = ui_app.Ui_MainWindow()
+        self.ui.setupUi(self)
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    win = 主窗口()
+    win.show()
+    sys.exit(app.exec())
+
+```
+
+
+
 # 组件中文化
 
 将ui对象包装一下即可实现中文化 不会丢失原有的对象的功能
@@ -149,14 +198,6 @@ class myApp(qtefun.部件公共类):
         print("内容被改变", self.ui.textEdit.内容)
 ```
 
-# 组件对应的英文
-
-| 英文 | 中文       |
-| ---- |----------|
-| `QtWidgets.QPushButton` | `按钮`     |
-| `QtWidgets.QLineEdit` | `单行文本框`  |
-| `QtWidgets.QPlainTextEdit` | `纯文本编辑框` |
-| `QtWidgets.QTextEdit` | `富文本编辑框` |
 
 # 窗口通讯
 

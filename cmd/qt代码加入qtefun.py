@@ -18,6 +18,11 @@ def 将qt的ui代码加入qtefun(代码文件内容):
         "表格": "QTableWidget",
         "选择夹": "QTabWidget",
         # "容器": "QWidget",
+        "时间编辑框": "QTimeEdit",
+        "日期编辑框": "QDateEdit",
+        "日期时间编辑框": "QDateTimeEdit",
+        "整数编辑框": "QSpinBox",
+        "小数编辑框": "QDoubleSpinBox",
     }
     # 取所有key的value
     英文的key = list(组件中英文对照.values())
