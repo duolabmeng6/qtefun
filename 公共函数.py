@@ -1,7 +1,9 @@
 import traceback
 import datetime
 
+from PySide6 import QtCore
 from PySide6.QtCore import QCoreApplication
+from PySide6.QtGui import QImage
 from PySide6.QtWidgets import QApplication
 from qtpy.uic import loadUi
 
@@ -25,3 +27,10 @@ def 应用退出():
 
 def 设置关闭窗口不退出():
     QApplication.setQuitOnLastWindowClosed(False)  # 关闭最后一个窗口不退出程序
+
+
+def 置剪切板图片(图片数据: QImage):
+    mimData = QtCore.QMimeData()
+    mimData.setImageData(图片数据)
+    QApplication.clipboard().setMimeData(mimData)
+
