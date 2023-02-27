@@ -28,6 +28,7 @@ def 将qt的ui代码加入qtefun(代码文件内容):
         "圆形调节器": "QDial",
         "滑块条": "QSlider",
         "滚动条": "QScrollBar",
+        "快捷键编辑框": "QKeySequenceEdit",
     }
     # 取所有key的value
     英文的key = list(组件中英文对照.values())
