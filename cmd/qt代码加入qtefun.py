@@ -23,6 +23,9 @@ def 将qt的ui代码加入qtefun(代码文件内容):
         "日期时间编辑框": "QDateTimeEdit",
         "整数编辑框": "QSpinBox",
         "小数编辑框": "QDoubleSpinBox",
+        "组合框": "QComboBox",
+        "字体选择框": "QFontComboBox",
+
     }
     # 取所有key的value
     英文的key = list(组件中英文对照.values())
