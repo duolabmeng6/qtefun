@@ -19,3 +19,7 @@ class 系统托盘图标(QSystemTrayIcon):
         
     def 隐藏(self):
         self.hide()
+
+    def 绑定事件激活(self,回调函数):
+
+        self.activated.connect(回调函数)

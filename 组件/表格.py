@@ -1,5 +1,7 @@
 from PySide6 import QtWidgets
-from PySide6.QtWidgets import QTableWidgetItem, QAbstractItemView, QLineEdit, QComboBox, QPushButton, QCheckBox
+from PySide6.QtGui import Qt, QKeySequence
+from PySide6.QtWidgets import QTableWidgetItem, QAbstractItemView, QLineEdit, QComboBox, QPushButton, QCheckBox, \
+    QKeySequenceEdit
 
 from qtefun.组件.组件公共类 import 组件公共类
 
@@ -106,11 +108,33 @@ class 表格(组件公共类):
         button.clicked.connect(被点击)
         self.设置单元格组件(行号, 列号, button)
 
+    # 设置单元格快捷键编辑框
+    def 设置单元格快捷键编辑框(self, 行号, 列号, 文本, 回调函数):
+        inputText = QKeySequenceEdit(self.对象)
+        inputText.setKeySequence(文本)
+
+        def 完成编辑():
+            回调函数(行号, 列号, inputText.keySequence().toString())
+
+        def keySequenceChanged(keySequence:QKeySequence):
+            # 如果是 退格键就清空
+            if keySequence == QKeySequence(Qt.Key_Backspace):
+                inputText.clear()
+
+        inputText.editingFinished.connect(完成编辑)
+        # 按下某件键时触发
+        inputText.keySequenceChanged.connect(keySequenceChanged)
+
+        self.设置单元格组件(行号, 列号, inputText)
+
     def 取行数(self):
         return self.对象.rowCount()
 
     def 取列数(self):
         return self.对象.columnCount()
+
+    def 取文本(self, 行号, 列号):
+        return self.对象.item(行号, 列号).text()
 
     def 导出数据(self):
         整体数据 = []
@@ -118,8 +142,12 @@ class 表格(组件公共类):
             组合数据 = []
             for y in range(self.取列数()):
                 obj = self.对象.cellWidget(x, y)
+                # print(x, y, obj)
                 if obj is None:
-                    数据 = self.对象.item(x, y).text()
+                    try:
+                        数据 = self.对象.item(x, y).text()
+                    except:
+                        print("导出错误了", x, y, obj)
                 else:
                     数据 = None
                     if isinstance(obj, QLineEdit):
@@ -128,6 +156,8 @@ class 表格(组件公共类):
                         数据 = obj.isChecked()
                     elif isinstance(obj, QComboBox):
                         数据 = obj.currentText()
+                    elif isinstance(obj, QKeySequenceEdit):
+                        数据 = obj.keySequence().toString()
                 组合数据.append(数据)
             整体数据.append(组合数据)
         return 整体数据
