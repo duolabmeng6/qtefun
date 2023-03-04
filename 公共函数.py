@@ -5,7 +5,6 @@ from PySide6 import QtCore, QtWidgets
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtGui import QImage
 from PySide6.QtWidgets import QApplication
-from qtpy.uic import loadUi
 
 def 异常检测(function):
     def box(*args, **kwargs):
@@ -20,6 +19,7 @@ def 异常检测(function):
 
 
 def 加载ui文件(ui文件名,容器=None):
+    from qtpy.uic import loadUi
     return loadUi(ui文件名, 容器)
 
 def 应用退出():
@@ -155,3 +155,41 @@ def 打开输入框(self, 标题="输入", 内容="请输入", 初始值="", 密
         输入结果, 确定 = QtWidgets.QInputDialog.getText(self, 标题, 内容, QtWidgets.QLineEdit.Normal, 初始值)
 
     return 输入结果, 确定
+
+
+import os
+import sys
+import socket
+
+def 应用程序检查是否重复运行(app_name):
+    """
+    防止应用程序重复运行的函数。
+
+    Parameters:
+        app_name (str): 应用程序的名称。
+
+    Returns:
+        bool: 如果程序已经在运行中，则返回 True，否则返回 False。
+    """
+    if os.name == 'nt':
+        # 如果当前操作系统是 Windows，则使用以下方式来检查程序是否已经在运行中
+        import win32event
+        import win32api
+        import winerror
+        instance_mutex = win32event.CreateMutex(None, 1, app_name)
+        if win32api.GetLastError() == winerror.ERROR_ALREADY_EXISTS:
+            return True
+    else:
+        # 如果当前操作系统是 macOS 或 Linux，则使用以下方式来检查程序是否已经在运行中
+        pidfile = f'/var/run/{app_name}.pid'
+        if os.path.isfile(pidfile):
+            try:
+                with open(pidfile, 'r') as f:
+                    pid = int(f.read().strip())
+                    os.kill(pid, 0)
+                    return True
+            except (IOError, OSError, ValueError):
+                pass
+        with open(pidfile, 'w') as f:
+            f.write(str(os.getpid()))
+    return False
